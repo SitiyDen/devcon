@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>1С DevCon 2026 - Конференция для прикладных разработчиков</title>
+  <style>
+    :root {
+      --yellow: #FFD200;
+      --yellow-bright: #FFE042;
+      --black: #0A0A0A;
+      --gray-dark: #1A1A1A;
+      --gray: #2A2A2A;
+      --gray-light: #F5F5F5;
+      --white: #FFFFFF;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
+      color: var(--black);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 1000;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    nav.scrolled {
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .nav-container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 20px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 24px;
+      font-weight: 800;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 40px;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 500;
+      font-size: 15px;
+      position: relative;
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--gray);
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--yellow);
+      transition: width 0.3s ease;
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero Section */
+    header {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #FFFFFF 0%, #F8F8F8 50%, var(--yellow) 100%);
+      padding-top: 80px;
+    }
+
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      opacity: 0.03;
+      background-image: 
+        repeating-linear-gradient(0deg, transparent, transparent 2px, var(--black) 2px, var(--black) 3px),
+        repeating-linear-gradient(90deg, transparent, transparent 2px, var(--black) 2px, var(--black) 3px);
+      animation: grid-move 20s linear infinite;
+    }
+
+    @keyframes grid-move {
+      0% { transform: translate(0, 0); }
+      100% { transform: translate(50px, 50px); }
+    }
+
+    .hero-shape {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      opacity: 0.6;
+      animation: float 20s ease-in-out infinite;
+    }
+
+    .shape-1 {
+      width: 600px;
+      height: 600px;
+      background: var(--yellow);
+      top: -200px;
+      right: -100px;
+    }
+
+    .shape-2 {
+      width: 400px;
+      height: 400px;
+      background: var(--yellow-bright);
+      bottom: -100px;
+      left: -50px;
+      animation-delay: -10s;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      33% { transform: translate(50px, -50px) scale(1.1); }
+      66% { transform: translate(-50px, 50px) scale(0.9); }
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 0 40px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .badge {
+      display: inline-block;
+      background: var(--black);
+      color: var(--yellow);
+      padding: 10px 24px;
+      font-weight: 700;
+      font-size: 13px;
+      border-radius: 30px;
+      margin-bottom: 30px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    h1 {
+      font-size: 80px;
+      line-height: 1.1;
+      margin-bottom: 30px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: fadeInUp 0.8s ease;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .hero-info {
+      font-size: 22px;
+      margin-bottom: 40px;
+      color: var(--gray);
+      font-weight: 500;
+      animation: fadeInUp 0.8s ease 0.2s both;
+    }
+
+    .cta-group {
+      display: flex;
+      gap: 20px;
+      animation: fadeInUp 0.8s ease 0.4s both;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 18px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-primary {
+      background: var(--black);
+      color: var(--white);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--black);
+      border: 2px solid var(--black);
+    }
+
+    .btn-secondary:hover {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    /* Sections */
+    section {
+      padding: 120px 40px;
+      position: relative;
+    }
+
+    h2 {
+      font-size: 56px;
+      margin-bottom: 60px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    h3 {
+      font-size: 28px;
+      margin-bottom: 15px;
+      font-weight: 800;
+    }
+
+    /* About Section */
+    #about {
+      background: var(--white);
+    }
+
+    .about-content {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .about-content p {
+      font-size: 20px;
+      line-height: 1.8;
+      margin-bottom: 30px;
+      color: var(--gray);
+    }
+
+    .about-content strong {
+      color: var(--black);
+    }
+
+    /* Sections Grid */
+    #sections {
+      background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 30px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 24px;
+      padding: 40px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--yellow) 0%, var(--yellow-bright) 100%);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.4s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    /* Tickets Section */
+    #tickets {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    #tickets h2 {
+      color: var(--white);
+    }
+
+    .ticket-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+      gap: 40px;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .ticket-card {
+      background: var(--gray-dark);
+      border-radius: 32px;
+      padding: 50px;
+      position: relative;
+      transition: all 0.4s ease;
+      border: 2px solid transparent;
+    }
+
+    .ticket-card.featured {
+      background: linear-gradient(135deg, var(--gray-dark) 0%, var(--gray) 100%);
+      border-color: var(--yellow);
+      transform: scale(1.05);
+    }
+
+    .ticket-card:hover {
+      transform: translateY(-10px) scale(1.02);
+    }
+
+    .ticket-card.featured:hover {
+      transform: translateY(-10px) scale(1.07);
+    }
+
+    .ticket-badge {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 6px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .price {
+      font-size: 48px;
+      font-weight: 900;
+      margin: 20px 0;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .ticket-card ul {
+      list-style: none;
+      margin: 30px 0;
+    }
+
+    .ticket-card li {
+      padding: 12px 0;
+      padding-left: 30px;
+      position: relative;
+      color: rgba(255, 255, 255, 0.8);
+    }
+
+    .ticket-card li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--yellow);
+      font-weight: 900;
+    }
+
+    .btn-ticket {
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+      background: var(--yellow);
+      color: var(--black);
+      font-weight: 800;
+    }
+
+    .btn-ticket:hover {
+      background: var(--yellow-bright);
+      transform: translateY(-3px);
+    }
+
+    /* Talks Section */
+    #talks {
+      background: var(--white);
+    }
+
+    .talks-list {
+      max-width: 1000px;
+      margin: 0 auto;
+      display: grid;
+      gap: 30px;
+    }
+
+    .talk-item {
+      background: var(--gray-light);
+      border-radius: 20px;
+      padding: 40px;
+      transition: all 0.3s ease;
+      border-left: 4px solid transparent;
+      display: flex;
+      gap: 30px;
+      align-items: flex-start;
+    }
+
+    .talk-item:hover {
+      border-left-color: var(--yellow);
+      transform: translateX(10px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .speaker-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 20px;
+      object-fit: cover;
+      flex-shrink: 0;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease;
+    }
+
+    .talk-item:hover .speaker-photo {
+      transform: scale(1.05);
+    }
+
+    .talk-content {
+      flex: 1;
+    }
+
+    .talk-category {
+      display: inline-block;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 12px;
+      font-weight: 700;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+    }
+
+    .speaker-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 15px;
+      color: var(--gray);
+      font-size: 15px;
+    }
+
+    .speaker-name {
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .speaker-role {
+      color: var(--gray);
+    }
+
+    .speaker-divider {
+      width: 4px;
+      height: 4px;
+      background: var(--gray);
+      border-radius: 50%;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--black);
+      color: var(--white);
+      padding: 80px 40px 40px;
+    }
+
+    .footer-content {
+      max-width: 1400px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 60px;
+      margin-bottom: 60px;
+    }
+
+    .footer-section h3 {
+      color: var(--yellow);
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .footer-section p {
+      color: rgba(255, 255, 255, 0.7);
+      line-height: 1.8;
+    }
+
+    .footer-bottom {
+      text-align: center;
+      padding-top: 40px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: rgba(255, 255, 255, 0.5);
+    }
+
+    /* Mobile Responsive */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      h1 {
+        font-size: 48px;
+      }
+
+      h2 {
+        font-size: 36px;
+      }
+
+      .hero-info {
+        font-size: 18px;
+      }
+
+      .cta-group {
+        flex-direction: column;
+      }
+
+      section {
+        padding: 80px 20px;
+      }
+
+      .container {
+        padding: 0 20px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ticket-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ticket-card.featured {
+        transform: scale(1);
+      }
+    }
+
+    /* Scroll Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 0.8s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.2s; }
+    .delay-3 { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+
+<nav id="navbar">
+  <div class="nav-container">
+    <div class="logo">1С DevCon</div>
+    <div class="nav-links">
+      <a href="#about">О конференции</a>
+      <a href="#sections">Программа</a>
+      <a href="#talks">Доклады</a>
+      <a href="#tickets">Билеты</a>
+      <a href="#place">Место</a>
+    </div>
+  </div>
+</nav>
+
+<header>
+  <div class="hero-bg"></div>
+  <div class="hero-shape shape-1"></div>
+  <div class="hero-shape shape-2"></div>
+  
+  <div class="container">
+    <div class="badge">ВПЕРВЫЕ ОФЛАЙН</div>
+    <h1>1С DevCon 2026<br>для прикладных<br>разработчиков</h1>
+    <p class="hero-info">
+      6-я конференция для разработчиков, архитекторов и тестировщиков 1С<br>
+      📅 04 апреля 2026 · 📍 Москва, Дмитровское шоссе, 9
+    </p>
+    <div class="cta-group">
+      <a href="#tickets" class="btn btn-primary">Купить билет</a>
+      <a href="#about" class="btn btn-secondary">Узнать больше</a>
+    </div>
+  </div>
+</header>
+
+<section id="about">
+  <div class="container">
+    <h2 class="fade-in">О конференции</h2>
+    <div class="about-content">
+      <p class="fade-in delay-1">
+        <strong>1С DevCon</strong> — это уже шестая профессиональная конференция,
+        посвящённая разработке, архитектуре и тестированию решений на платформе 1С.
+        В 2026 году конференция <strong>впервые проходит в офлайн-формате</strong>,
+        что делает её особенно ценной для живого общения и обмена опытом.
+      </p>
+      <p class="fade-in delay-2">
+        DevCon — это пространство для тех, кто ежедневно решает прикладные задачи:
+        проектирует архитектуру, пишет код, внедряет интерфейсы 8.5,
+        тестирует решения, работает с EDT, Облаками и Элементом.
+        Мы говорим не о теории, а о реальной практике и боевых кейсах.
+      </p>
+      <p class="fade-in delay-3">
+        Вас ждут технические доклады, мастер-классы, круглые столы,
+        живые дискуссии и возможность напрямую пообщаться с коллегами
+        и экспертами из индустрии.
+      </p>
+    </div>
+  </div>
+</section>
+
+<section id="sections">
+  <div class="container">
+    <h2>Секции и форматы</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>1С:Аналитика</h3>
+      </div>
+      <div class="card">
+        <h3>1С:Шина</h3>
+      </div>
+      <div class="card">
+        <h3>1C:EDT</h3>
+      </div>
+      <div class="card">
+        <h3>Платформа</h3>
+      </div>
+      <div class="card">
+        <h3>Интерфейс 8.5</h3>
+      </div>
+      <div class="card">
+        <h3>1С:Напарник</h3>
+      </div>
+      <div class="card">
+        <h3>1С:Элемент</h3>
+      </div>
+      <div class="card">
+        <h3>Облака</h3>
+      </div>
+      <div class="card">
+        <h3>Опыт тестирования</h3>
+      </div>
+      <div class="card">
+        <h3>Примеры решений</h3>
+      </div>
+      <div class="card">
+        <h3>Круглый стол: навыки разработчика</h3>
+      </div>
+      <div class="card">
+        <h3>Круглый стол по Элементу</h3>
+      </div>
+      <div class="card">
+        <h3>МК для начинающих</h3>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="talks">
+  <div class="container">
+    <h2>Доклады</h2>
+    <div class="talks-list">
+      <div class="talk-item">
+        <img src="https://sun9-39.userapi.com/s/v1/ig2/rdkqNbQ6ijybKhftz2o_sfYNi0DsdzDbp1VFkQEIGGLtTtmxQeUUzFlIADlfzMOEAXLjHClnOiS06C29ACqkVyRd.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0" alt="Алексей Петров" class="speaker-photo">
+        <div class="talk-content">
+          <span class="talk-category">Платформа</span>
+          <h3>Архитектурные решения на платформе 1С</h3>
+          <p>Разбор реальных кейсов проектирования сложных систем и оптимизации производительности</p>
+          <div class="speaker-info">
+            <span class="speaker-name">Денис Сытый</span>
+            <span class="speaker-divider"></span>
+            <span class="speaker-role">Главный архитектор 1С:ERP</span>
+          </div>
+        </div>
+      </div>
+      <div class="talk-item">
+        <img src="https://sun9-39.userapi.com/s/v1/ig2/rdkqNbQ6ijybKhftz2o_sfYNi0DsdzDbp1VFkQEIGGLtTtmxQeUUzFlIADlfzMOEAXLjHClnOiS06C29ACqkVyRd.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0" alt="Денис Сытый" class="speaker-photo">
+        <div class="talk-content">
+          <span class="talk-category">EDT</span>
+          <h3>Продуктивная разработка в EDT</h3>
+          <p>Лучшие практики, плагины и инструменты для ускорения разработки</p>
+          <div class="speaker-info">
+            <span class="speaker-name">Денис Сытый</span>
+            <span class="speaker-divider"></span>
+            <span class="speaker-role">Главный архитектор 1С:ERP</span>
+          </div>
+        </div>
+      </div>
+      <div class="talk-item">
+        <img src="https://sun9-39.userapi.com/s/v1/ig2/rdkqNbQ6ijybKhftz2o_sfYNi0DsdzDbp1VFkQEIGGLtTtmxQeUUzFlIADlfzMOEAXLjHClnOiS06C29ACqkVyRd.jpg?quality=95&as=32x32,48x48,72x72,108x108,160x160,240x240,360x360,480x480,540x540,640x640,720x720,1024x1024&from=bu&cs=1024x0" alt="Дмитрий Иванов" class="speaker-photo">
+        <div class="talk-content">
+          <span class="talk-category">Интерфейс 8.5</span>
+          <h3>Современные интерфейсы в 1С</h3>
+          <p>Создание удобных и красивых пользовательских интерфейсов</p>
+          <div class="speaker-info">
+            <span class="speaker-name">Денис Сытый</span>
+            <span class="speaker-divider"></span>
+            <span class="speaker-role">Главный архитектор 1С:ERP</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="tickets">
+  <div class="container">
+    <h2>Тарифы участия</h2>
+    <div class="ticket-grid">
+      <div class="ticket-card">
+        <h3>Стандарт</h3>
+        <p class="price">6 500 ₽</p>
+        <ul>
+          <li>Посещение конференции</li>
+          <li>Записи всех докладов</li>
+          <li>Пакет участника</li>
+          <li>Кофе-брейки</li>
+        </ul>
+        <a href="#" class="btn btn-ticket">Выбрать тариф</a>
+      </div>
+      
+      <div class="ticket-card featured">
+        <span class="ticket-badge">Популярный</span>
+        <h3>VIP</h3>
+        <p class="price">10 000 ₽</p>
+        <ul>
+          <li>Посещение конференции</li>
+          <li>Первые ряды в зале</li>
+          <li>Записи всех докладов</li>
+          <li>Пакет участника</li>
+          <li>Кофе-брейки</li>
+          <li>Обед</li>
+          <li>Фуршет</li>
+          <li>Вечерняя программа</li>
+          <li>Гала-ужин</li>
+        </ul>
+        <a href="#" class="btn btn-ticket">Выбрать VIP</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="place">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h3>1С DevCon 2026</h3>
+      <p>Профессиональная конференция для разработчиков, архитекторов и тестировщиков на платформе 1С</p>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Место проведения</h3>
+      <p>Москва<br>Дмитровское шоссе, 9<br>04 апреля 2026</p>
+    </div>
+    
+    <div class="footer-section">
+      <h3>Контакты</h3>
+      <p>info@1cdevcon.ru<br>+7 (495) 123-45-67</p>
+    </div>
+  </div>
+  
+  <div class="footer-bottom">
+    <p>© 2026 Конференция для разработчиков 1С. Все права защищены.</p>
+  </div>
+</footer>
+
+<script>
+  // Smooth scroll
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Navbar scroll effect
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+
+  // Intersection Observer for fade-in animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -100px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  document.querySelectorAll('.fade-in, .card, .talk-item').forEach(el => {
+    observer.observe(el);
+  });
+</script>
+
+</body>
+</html>
