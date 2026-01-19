@@ -42,6 +42,11 @@
       transition: all 0.3s ease;
     }
 
+    .logo img {
+  width: 150px; /* или другая подходящая ширина */
+  height: auto; /* чтобы сохранить пропорции */
+}
+
     nav.scrolled {
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
     }
@@ -617,7 +622,9 @@
 
 <nav id="navbar">
   <div class="nav-container">
-    <div class="logo">1С DevCon</div>
+    <div class="logo">
+      <img src="https://i.postimg.cc/q74YbKtW/devcon-2021-logo.png" alt="Логотип 1С DevCon">
+    </div>
     <div class="nav-links">
       <a href="#about">О конференции</a>
       <a href="#sections">Программа</a>
