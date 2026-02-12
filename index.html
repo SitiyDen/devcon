@@ -18,6 +18,7 @@
     * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
@@ -42,21 +43,102 @@
     }
 
     .logo img {
-  width: 150px; /* или другая подходящая ширина */
-  height: auto; /* чтобы сохранить пропорции */
-}
+      width: 150px;
+      height: auto;
+    }
 
     nav.scrolled {
       box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
     }
 
     .nav-container {
-      
       margin: 0 auto;
       padding: 20px 80px;
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 8px;
+      z-index: 1001;
+    }
+
+    .mobile-menu-btn span {
+      display: block;
+      width: 25px;
+      height: 3px;
+      background: var(--black);
+      margin: 5px 0;
+      transition: all 0.3s ease;
+      border-radius: 3px;
+    }
+
+    .mobile-menu-btn.active span:nth-child(1) {
+      transform: rotate(45deg) translate(7px, 7px);
+    }
+
+    .mobile-menu-btn.active span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .mobile-menu-btn.active span:nth-child(3) {
+      transform: rotate(-45deg) translate(7px, -7px);
+    }
+
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 0;
+      right: -100%;
+      width: 280px;
+      height: 100vh;
+      background: var(--white);
+      box-shadow: -5px 0 20px rgba(0, 0, 0, 0.1);
+      z-index: 999;
+      transition: right 0.3s ease;
+      padding-top: 80px;
+    }
+
+    .mobile-menu.active {
+      right: 0;
+    }
+
+    .mobile-menu-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 998;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .mobile-menu-overlay.active {
+      opacity: 1;
+    }
+
+    .mobile-menu a {
+      display: block;
+      padding: 20px 30px;
+      color: var(--black);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 18px;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+      transition: all 0.3s ease;
+    }
+
+    .mobile-menu a:hover {
+      background: var(--yellow);
+      padding-left: 40px;
     }
 
     .logo {
@@ -126,6 +208,22 @@
       animation: grid-move 20s linear infinite;
     }
 
+    .hero-date {
+      font-size: 28px;
+      margin-bottom: 8px;
+      color: #e30613;
+      font-weight: 800;
+      animation: fadeInUp 0.8s ease 0.25s both;
+      }
+
+     .hero-location {
+      font-size: 24px;
+      margin-bottom: 48px;
+      color: #555;
+      font-weight: 500;
+      animation: fadeInUp 0.8s ease 0.3s both;
+      }
+
     @keyframes grid-move {
       0% { transform: translate(0, 0); }
       100% { transform: translate(50px, 50px); }
@@ -192,27 +290,27 @@
     }
 
     .hero-right {
-  width: 60%;
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  display: flex;
-  justify-content: flex-end;
-  align-items: flex-end;
-  overflow: visible;
-  pointer-events: none;
-  z-index: 5;
-}
+      width: 60%;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      height: 100%;
+      display: flex;
+      justify-content: flex-end;
+      align-items: flex-end;
+      overflow: visible;
+      pointer-events: none;
+      z-index: 5;
+    }
 
-.hero-cat-image {
-  width: 40%;
-  height: auto;
-  object-fit: contain;
-  object-position: bottom right;
-  transform: scale(2);
-  transform-origin: bottom right;
-}
+    .hero-cat-image {
+      width: 40%;
+      height: auto;
+      object-fit: contain;
+      object-position: bottom right;
+      transform: scale(2);
+      transform-origin: bottom right;
+    }
 
     .badge {
       display: inline-block;
@@ -225,11 +323,8 @@
       margin-bottom: 40px;
       text-transform: uppercase;
       letter-spacing: 1.5px;
-  
-      max-width: 200px;
+      max-width: 250px;
     }
-
-    
 
     h1 {
       font-size: 96px;
@@ -255,427 +350,482 @@
       }
     }
 
-    .hero-info {
-      font-size: 28px;
-      margin-bottom: 20px;
-      color: #555;
-      font-weight: 500;
-      animation: fadeInUp 0.8s ease 0.2s both;
-    }
-
-    .hero-date {
-      font-size: 28px;
-      margin-bottom: 8px;
-      color: #e30613;
-      font-weight: 800;
-      animation: fadeInUp 0.8s ease 0.25s both;
-    }
-
-    .hero-location {
+    .hero-subtitle {
       font-size: 24px;
-      margin-bottom: 48px;
-      color: #555;
-      font-weight: 500;
-      animation: fadeInUp 0.8s ease 0.3s both;
+      color: var(--gray);
+      margin-bottom: 30px;
+      font-weight: 400;
+      animation: fadeInUp 0.8s ease 0.1s backwards;
     }
 
-    .cta-group {
+    .hero-meta {
+      display: flex;
+      gap: 40px;
+      margin-bottom: 50px;
+      animation: fadeInUp 0.8s ease 0.2s backwards;
+    }
+
+    .meta-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 18px;
+      color: var(--gray);
+    }
+
+    .meta-icon {
+      font-size: 24px;
+    }
+
+    .hero-buttons {
       display: flex;
       gap: 20px;
-      animation: fadeInUp 0.8s ease 0.4s both;
       flex-wrap: wrap;
+      animation: fadeInUp 0.8s ease 0.3s backwards;
     }
 
     .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      padding: 18px 40px;
-      border-radius: 999px;
+      display: inline-block;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray-dark) 100%);
+      color: var(--white);
+      padding: 20px 40px;
+      border-radius: 50px;
       text-decoration: none;
       font-weight: 700;
-      font-size: 30px;
-      transition: all 0.25s ease;
-      position: relative;
-      overflow: hidden;
+      font-size: 18px;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+      text-align: center;
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
     }
 
     .btn-primary {
-      background: var(--yellow);
-      color: var(--black);
-      box-shadow: 0 10px 30px rgba(227, 6, 19, 0.3);
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(227, 6, 19, 0.45);
+      background: linear-gradient(135deg, rgb(247, 49, 28) 0%, rgb(219, 44, 25) 100%);
+      color: var(--white);
     }
 
     .btn-secondary {
-      background: #0a0a3e;
-      color: var(--white);
-      box-shadow: 0 10px 30px rgba(10, 10, 62, 0.3);
-    }
-
-    .btn-secondary:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(10, 10, 62, 0.4);
-    }
-
-    .btn-tertiary {
       background: transparent;
-      color: var(--black);
       border: 2px solid var(--black);
+      color: var(--black);
       box-shadow: none;
     }
 
-    .btn-tertiary:hover {
+    .btn-secondary:hover {
       background: var(--black);
       color: var(--white);
-      transform: translateY(-3px);
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
     }
 
-    /* Sections */
-    section {
+    .btn-tertiary {
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%);
+      color: var(--black);
+      box-shadow: 0 10px 40px rgba(255, 210, 0, 0.3);
+    }
+
+    .btn-tertiary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 50px rgba(255, 210, 0, 0.4);
+    }
+
+    /* About Section */
+    #about {
       padding: 120px 40px;
-      position: relative;
+      background: var(--white);
+    }
+
+    .about-description {
+      max-width: 1000px;
+      margin: 0 auto 80px;
+      text-align: center;
+    }
+
+    .about-description p {
+      font-size: 20px;
+      line-height: 1.8;
+      color: var(--gray);
+      margin-bottom: 25px;
+    }
+
+    .about-description p strong {
+      color: var(--black);
+      font-weight: 700;
+    }
+
+    .roles-title {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 40px;
+      color: var(--black);
+    }
+
+    .roles-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      max-width: 1200px;
+      margin: 0 auto;
+      justify-content: center;
+    }
+
+    .role-badge {
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%);
+      color: var(--black);
+      padding: 12px 24px;
+      border-radius: 30px;
+      font-weight: 600;
+      font-size: 15px;
+      transition: all 0.3s ease;
+      cursor: default;
+      box-shadow: 0 4px 15px rgba(255, 210, 0, 0.2);
+    }
+
+    .role-badge:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(255, 210, 0, 0.3);
+    }
+
+    /* Why Section */
+    #why {
+      padding: 120px 40px;
+      background: var(--gray-light);
     }
 
     h2 {
-      font-size: 56px;
+      font-size: 64px;
+      font-weight: 900;
+      text-align: center;
       margin-bottom: 60px;
-      font-weight: 900;
-      text-align: center;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray) 100%);
+      -webkit-background-clip: text;
+      background-clip: text;
     }
 
-    .sale {
-      font-size: 56px;
-      margin-bottom: 0px;
-      font-weight: 900;
-      text-align: center;
+    .about-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
-    h3 {
+    .about-card {
+      padding: 50px 40px;
+      background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
+      border-radius: 24px;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .about-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .card-icon {
+      font-size: 48px;
+      margin-bottom: 20px;
+      display: block;
+    }
+
+    .about-card h3 {
       font-size: 28px;
       margin-bottom: 15px;
       font-weight: 800;
     }
 
-    /* About Section */
-    #about {
-      background: var(--white);
-      position: relative;
-      overflow: visible;
-    }
-
-    .about-content {
-      max-width: 900px;
-      margin: 0 auto;
-      position: relative;
-      z-index: 10;
-    }
-
-    .about-content p {
-      font-size: 20px;
-      line-height: 1.8;
-      margin-bottom: 30px;
+    .about-card p {
+      font-size: 18px;
       color: var(--gray);
+      line-height: 1.8;
     }
 
-    .about-content strong {
-      color: var(--black);
+    /* Stats Section */
+    #stats {
+      padding: 100px 40px;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray-dark) 100%);
+      color: var(--white);
     }
 
-    .audience-bubbles {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: center;
-      margin-top: 50px;
-      position: relative;
-      z-index: 1;
-    }
-
-    .bubble {
-      position: relative;
-      background: var(--yellow);
-      color: var(--black);
-      padding: 12px 24px;
-      border-radius: 50px;
-      font-size: 15px;
-      font-weight: 700;
-      white-space: nowrap;
-      box-shadow: 0 4px 12px rgba(255, 210, 0, 0.3);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-
-    .bubble:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 6px 16px rgba(255, 210, 0, 0.4);
-    }
-
-    /* Sections Grid */
-    #sections {
-      background: linear-gradient(180deg, var(--gray-light) 0%, var(--white) 100%);
-    }
-
-    .program-table {
-      max-width: 1200px;
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 60px;
+      max-width: 1400px;
       margin: 0 auto;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 72px;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.8);
+      font-weight: 500;
+    }
+
+    /* Speakers Section */
+    #speakers {
+      padding: 120px 40px;
+      background: var(--white);
+    }
+
+    .speakers-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 40px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .speaker-card {
+      background: linear-gradient(135deg, var(--gray-light) 0%, var(--white) 100%);
+      border-radius: 24px;
+      padding: 40px;
+      text-align: center;
+      transition: all 0.3s ease;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+    }
+
+    .speaker-card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+    }
+
+    .speaker-avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%);
+      margin: 0 auto 20px;
       display: flex;
-      flex-direction: column;
-      gap: 2px;
-      background: var(--gray-light);
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      font-weight: 900;
+      color: var(--black);
+    }
+
+    .speaker-card h3 {
+      font-size: 24px;
+      margin-bottom: 10px;
+      font-weight: 800;
+    }
+
+    .speaker-card p {
+      font-size: 16px;
+      color: var(--gray);
+      line-height: 1.6;
+    }
+
+    /* Program Section */
+    #program {
+      padding: 120px 40px;
+      background: linear-gradient(135deg, var(--gray-dark) 0%, var(--black) 100%);
+      color: var(--white);
+    }
+
+    h2.sale {
+      color: var(--yellow);
+    }
+
+    .program-container {
+      max-width: 1400px;
+      margin: 0 auto;
     }
 
     .program-row {
       display: grid;
-      grid-template-columns: 280px 1fr;
-      background: var(--white);
-      transition: all 0.3s ease;
+      grid-template-columns: 300px 1fr;
+      gap: 60px;
+      margin-bottom: 60px;
+      padding-bottom: 60px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     }
 
-    .program-row:hover {
-      background: #fafafa;
-    }
-
-    .program-row-special {
-      background: linear-gradient(135deg, #fff9e6 0%, var(--white) 100%);
-    }
-
-    .program-row-special:hover {
-      background: linear-gradient(135deg, #fff5cc 0%, #fafafa 100%);
-    }
-
-    .program-row-workshop {
-      background: linear-gradient(135deg, #e6f7ff 0%, var(--white) 100%);
-    }
-
-    .program-row-workshop:hover {
-      background: linear-gradient(135deg, #cceeff 0%, #fafafa 100%);
-    }
-
-    .program-header {
-      padding: 40px 30px;
-      background: var(--yellow);
-      color: var(--black);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .program-header::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 210, 0, 0.2), transparent);
-      transition: left 0.5s ease;
-    }
-
-    .program-row:hover .program-header::before {
-      left: 100%;
+    .program-row:last-child {
+      border-bottom: none;
     }
 
     .program-header h3 {
-      font-size: 22px;
+      font-size: 28px;
       font-weight: 800;
-      margin: 0;
-      position: relative;
-      z-index: 1;
+      color: var(--yellow);
+      margin-bottom: 10px;
     }
 
     .program-content {
-      padding: 40px;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
 
     .talk-card {
-      position: relative;
-      padding-left: 20px;
-    }
-
-    .talk-card::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 5px;
-      width: 4px;
-      height: calc(100% - 10px);
-      background: linear-gradient(180deg, var(--yellow) 0%, var(--yellow-bright) 100%);
-      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
       transition: all 0.3s ease;
     }
 
-    .program-row:hover .talk-card::before {
-      width: 6px;
-      background: linear-gradient(180deg, var(--yellow-bright) 0%, var(--yellow) 100%);
+    .talk-card:hover {
+      background: rgba(255, 255, 255, 0.08);
+      transform: translateX(10px);
     }
 
     .talk-card h4 {
-      font-size: 20px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      color: var(--black);
-      line-height: 1.3;
+      font-size: 22px;
+      margin-bottom: 10px;
+      font-weight: 700;
     }
 
     .talk-card p {
+      color: rgba(255, 255, 255, 0.7);
       font-size: 16px;
-      color: var(--gray);
       line-height: 1.6;
-      margin: 0;
+    }
+
+    .program-row-special {
+      background: linear-gradient(90deg, transparent, rgba(255, 210, 0, 0.05), transparent);
+      padding: 30px;
+      border-radius: 16px;
+      margin-left: -30px;
+      margin-right: -30px;
+    }
+
+    .program-row-workshop {
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.03), transparent);
+      padding: 30px;
+      border-radius: 16px;
+      margin-left: -30px;
+      margin-right: -30px;
     }
 
     /* Tickets Section */
     #tickets {
-      background: var(--black);
-      color: var(--white);
-    }
-
-    #tickets h2 {
+      padding: 120px 40px;
+      background: linear-gradient(135deg, var(--black) 0%, var(--gray-dark) 100%);
       color: var(--white);
     }
 
     .new-ticket-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 30px;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 40px;
       max-width: 1400px;
       margin: 0 auto;
     }
 
     .new-ticket-card {
-      background: linear-gradient(135deg, #DC143C 0%, #8B008B 100%);
+      background: rgba(255, 255, 255, 0.05);
+      border: 2px solid rgba(255, 255, 255, 0.1);
       border-radius: 24px;
-      padding: 50px 40px;
-      color: var(--white);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .new-ticket-card::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0) 100%);
-      opacity: 0;
-      transition: opacity 0.3s ease;
+      padding: 40px;
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
     }
 
     .new-ticket-card:hover {
       transform: translateY(-10px);
-      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.4);
-    }
-
-    .new-ticket-card:hover::before {
-      opacity: 1;
+      border-color: var(--yellow);
+      box-shadow: 0 20px 60px rgba(255, 210, 0, 0.2);
     }
 
     .ticket-vip {
-      background: linear-gradient(135deg, #DC143C 0%, #8B008B 100%);
-    }
-
-    .ticket-standard {
-      background: linear-gradient(135deg, #4169E1 0%, #000080 100%);
-    }
-
-    .ticket-online {
-      background: linear-gradient(135deg, #00008B 0%, #000033 100%);
+      border-color: var(--yellow);
+      background: linear-gradient(135deg, rgba(255, 210, 0, 0.1) 0%, rgba(255, 224, 66, 0.05) 100%);
     }
 
     .ticket-header h3 {
-      font-size: 32px;
-      font-weight: 900;
+      font-size: 28px;
       margin-bottom: 15px;
-      color: var(--white);
+      font-weight: 800;
     }
 
     .ticket-economy {
-      background: rgba(255, 255, 255, 0.2);
+      background: var(--yellow);
+      color: var(--black);
       padding: 8px 16px;
-      border-radius: 8px;
-      font-size: 14px;
+      border-radius: 20px;
+      font-size: 13px;
       font-weight: 700;
-      margin-bottom: 30px;
       display: inline-block;
+      margin-bottom: 20px;
     }
 
     .ticket-economy span {
       display: block;
       font-size: 11px;
-      font-weight: 500;
+      font-weight: 600;
       margin-top: 2px;
-      opacity: 0.8;
     }
 
     .ticket-prices {
-      margin-bottom: 30px;
+      margin: 20px 0;
     }
 
     .old-price {
-      font-size: 24px;
+      font-size: 20px;
+      color: rgba(255, 255, 255, 0.4);
       text-decoration: line-through;
-      opacity: 0.6;
-      font-weight: 600;
       margin-bottom: 5px;
     }
 
     .new-price {
-      font-size: 56px;
+      font-size: 48px;
       font-weight: 900;
-      line-height: 1;
-      letter-spacing: -1px;
+      color: var(--yellow);
     }
 
     .ticket-features {
       list-style: none;
       margin: 30px 0;
-      padding: 0;
+      flex-grow: 1;
     }
 
     .ticket-features li {
       padding: 12px 0;
       font-size: 16px;
-      line-height: 1.5;
-      color: rgba(255, 255, 255, 0.95);
-      position: relative;
+      color: rgba(255, 255, 255, 0.9);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .ticket-features li:last-child {
+      border-bottom: none;
     }
 
     .btn-new-ticket {
-      width: 100%;
-      text-align: center;
-      padding: 18px;
-      background: #DC143C;
-      color: var(--white);
-      border-radius: 50px;
-      font-weight: 800;
-      font-size: 18px;
-      text-decoration: none;
       display: block;
+      background: var(--yellow);
+      color: var(--black);
+      padding: 18px 40px;
+      border-radius: 50px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      text-align: center;
       transition: all 0.3s ease;
       margin-top: 20px;
-      box-shadow: 0 10px 30px rgba(220, 20, 60, 0.3);
     }
 
     .btn-new-ticket:hover {
-      background: #FF1744;
-      transform: translateY(-3px);
-      box-shadow: 0 15px 40px rgba(220, 20, 60, 0.5);
+      background: var(--yellow-bright);
+      transform: scale(1.05);
     }
 
     /* Footer */
@@ -686,23 +836,34 @@
     }
 
     .footer-content {
-      max-width: 1400px;
-      margin: 0 auto;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
       gap: 60px;
-      margin-bottom: 60px;
+      max-width: 1400px;
+      margin: 0 auto 60px;
     }
 
     .footer-section h3 {
-      color: var(--yellow);
-      margin-bottom: 20px;
       font-size: 20px;
+      margin-bottom: 20px;
+      font-weight: 800;
+      color: var(--yellow);
     }
 
     .footer-section p {
       color: rgba(255, 255, 255, 0.7);
       line-height: 1.8;
+      font-size: 15px;
+    }
+
+    .footer-section a {
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--yellow);
     }
 
     .footer-bottom {
@@ -710,48 +871,47 @@
       padding-top: 40px;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
       color: rgba(255, 255, 255, 0.5);
+      font-size: 14px;
     }
 
-    /* Mobile Responsive */
-    @media (max-width: 1024px) {
-      .new-ticket-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .bubble {
-        font-size: 13px;
-        padding: 10px 18px;
-      }
+    .footer-bottom p {
+      margin: 5px 0;
     }
 
+    /* MOBILE RESPONSIVE STYLES */
     @media (max-width: 768px) {
+      /* Navigation */
+      .nav-container {
+        padding: 15px 20px;
+      }
+
+      .logo {
+        font-size: 18px;
+      }
+
+      .logo img {
+        width: 100px;
+      }
+
       .nav-links {
         display: none;
       }
 
-      h1 {
-        font-size: 48px;
+      .mobile-menu-btn {
+        display: block;
       }
 
-      h2 {
-        font-size: 36px;
+      .mobile-menu {
+        display: block;
       }
 
-      .hero-info {
-        font-size: 20px;
+      .mobile-menu-overlay {
+        display: block;
       }
 
-      .hero-date {
-        font-size: 20px;
-      }
-
-      .hero-location {
-        font-size: 18px;
-      }
-
+      /* Hero Section */
       .hero-inner {
         flex-direction: column;
-        padding: 0;
         min-height: auto;
       }
 
@@ -762,73 +922,155 @@
       }
 
       .hero-right {
-        width: 100%;
-        height: 40vh;
         position: relative;
+        width: 100%;
+        height: 300px;
+        margin-top: 20px;
       }
 
       .hero-cat-image {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
+        width: 80%;
+        transform: scale(1.2);
+        transform-origin: bottom center;
       }
 
-      .bubble {
+      .badge {
         font-size: 12px;
-        padding: 8px 16px;
+        padding: 8px 20px;
+        margin-bottom: 20px;
       }
 
-      .audience-bubbles {
-        gap: 8px;
-        margin-top: 30px;
-      }
-
-      .cta-group {
-        flex-direction: column;
-      }
-
-      section {
-        padding: 80px 20px;
-      }
-
-      .container {
-        padding: 0 20px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
-
-      .new-ticket-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .new-ticket-card {
-        padding: 40px 30px;
-      }
-
-      .ticket-header h3 {
-        font-size: 28px;
-      }
-
-      .new-price {
+      h1 {
         font-size: 48px;
+        margin-bottom: 20px;
       }
 
-      .program-row {
+      .hero-subtitle {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+
+      .hero-meta {
+        flex-direction: column;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .meta-item {
+        font-size: 16px;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .btn {
+        padding: 16px 32px;
+        font-size: 16px;
+        width: 100%;
+        text-align: center;
+      }
+
+      /* Sections */
+      #about,
+      #why,
+      #speakers,
+      #program,
+      #tickets {
+        padding: 60px 20px;
+      }
+
+      h2 {
+        font-size: 36px;
+        margin-bottom: 40px;
+      }
+
+      /* About Section */
+      .about-description {
+        margin-bottom: 50px;
+      }
+
+      .about-description p {
+        font-size: 16px;
+        margin-bottom: 20px;
+        text-align: left;
+      }
+
+      .roles-title {
+        font-size: 24px;
+        margin-bottom: 30px;
+      }
+
+      .roles-grid {
+        gap: 10px;
+      }
+
+      .role-badge {
+        font-size: 13px;
+        padding: 10px 18px;
+      }
+
+      /* About Section */
+      .about-grid {
         grid-template-columns: 1fr;
+        gap: 20px;
       }
 
-      .program-header {
+      .about-card {
         padding: 30px 20px;
       }
 
-      .program-header h3 {
+      .about-card h3 {
+        font-size: 22px;
+      }
+
+      .about-card p {
+        font-size: 16px;
+      }
+
+      /* Stats Section */
+      #stats {
+        padding: 60px 20px;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 40px;
+      }
+
+      .stat-number {
+        font-size: 56px;
+      }
+
+      .stat-label {
         font-size: 18px;
       }
 
-      .program-content {
+      /* Speakers Section */
+      .speakers-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .speaker-card {
         padding: 30px 20px;
+      }
+
+      /* Program Section */
+      .program-row {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        margin-bottom: 40px;
+        padding-bottom: 40px;
+      }
+
+      .program-header h3 {
+        font-size: 22px;
+      }
+
+      .talk-card {
+        padding: 20px;
       }
 
       .talk-card h4 {
@@ -836,488 +1078,600 @@
       }
 
       .talk-card p {
-        font-size: 15px;
+        font-size: 14px;
       }
 
-      #place .container > div:first-child {
-        padding: 60px 20px 30px !important;
+      .program-row-special,
+      .program-row-workshop {
+        margin-left: 0;
+        margin-right: 0;
+        padding: 20px;
+      }
+
+      /* Tickets Section */
+      .new-ticket-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .new-ticket-card {
+        padding: 30px 20px;
+      }
+
+      .ticket-header h3 {
+        font-size: 24px;
+      }
+
+      .new-price {
+        font-size: 40px;
+      }
+
+      .ticket-features li {
+        font-size: 14px;
+        padding: 10px 0;
+      }
+
+      /* Footer */
+      footer {
+        padding: 60px 20px 30px;
+      }
+
+      .footer-content {
+        grid-template-columns: 1fr;
+        gap: 40px;
+        margin-bottom: 40px;
+      }
+
+      .footer-section h3 {
+        font-size: 18px;
+      }
+
+      .footer-section p {
+        font-size: 14px;
+      }
+
+      /* Map Section */
+      #place iframe {
+        height: 300px !important;
+      }
+
+      #place > div > div:first-child {
+        padding: 40px 20px 20px !important;
       }
 
       #place h2 {
-        font-size: 32px;
+        font-size: 32px !important;
       }
 
       #place p {
-        font-size: 18px !important;
+        font-size: 16px !important;
       }
 
-      #place iframe {
-        height: 350px !important;
+      #place > div > div:last-child > div {
+        position: static !important;
+        margin: 20px 20px 0 !important;
+        max-width: 100% !important;
       }
 
-      #place > .container > div:last-child > div:first-child {
-        position: relative !important;
-        top: auto !important;
-        left: auto !important;
-        margin: 20px;
-        max-width: calc(100% - 40px);
+      /* Telegram Section */
+      #telegram {
+        padding: 60px 20px !important;
+      }
+
+      #telegram h2 {
+        font-size: 32px !important;
+      }
+
+      #telegram p {
+        font-size: 16px !important;
       }
     }
 
-    /* Scroll Animations */
-    .fade-in {
-      opacity: 0;
-      transform: translateY(30px);
-      animation: fadeInUp 0.8s ease forwards;
-    }
+    /* Small mobile devices */
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 36px;
+      }
 
-    .delay-1 { animation-delay: 0.1s; }
-    .delay-2 { animation-delay: 0.2s; }
-    .delay-3 { animation-delay: 0.3s; }
+      .hero-subtitle {
+        font-size: 16px;
+      }
+
+      h2 {
+        font-size: 28px;
+      }
+
+      .stat-number {
+        font-size: 48px;
+      }
+
+      .new-price {
+        font-size: 36px;
+      }
+
+      .btn {
+        padding: 14px 24px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 <body>
+  <nav id="navbar">
+    <div class="nav-container">
+      <div class="logo">
+        <img src="https://i.postimg.cc/q74YbKtW/devcon-2021-logo.png" alt="1С DevCon 2026">
+      </div>
+      <div class="nav-links">
+        <a href="#about">О конференции</a>
+        <a href="#program">Программа</a>
+        <a href="#tickets">Билеты</a>
+        <a href="#place">Место</a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Меню">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </nav>
 
-<nav id="navbar">
-  <div class="nav-container">
-    <div class="logo">
-      <img src="https://i.postimg.cc/q74YbKtW/devcon-2021-logo.png" alt="Логотип 1С DevCon">
-    </div>
-    <div class="nav-links">
-      <a href="#about">О конференции</a>
-      <a href="#sections">Программа</a>
-      <a href="#tickets">Билеты</a>
-      <a href="#place">Место</a>
-    </div>
+  <div class="mobile-menu-overlay" id="mobileMenuOverlay"></div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about">О конференции</a>
+    <a href="#program">Программа</a>
+    <a href="#tickets">Билеты</a>
+    <a href="#place">Место</a>
   </div>
-</nav>
 
-<header>
-  <div class="hero-bg"></div>
-  <div class="hero-shape shape-1"></div>
-  <div class="hero-shape shape-2"></div>
-  
-  <div class="container">
-    <div class="hero-inner">
-      <div class="hero-left">
-        <div class="badge">ВПЕРВЫЕ ОФЛАЙН</div>
-        <h1>1С DevCon 2026<br>для прикладных<br>разработчиков</h1>
-        <p class="hero-info">
-          6-я конференция для разработчиков, архитекторов и тестировщиков 1С
+  <header>
+    <div class="hero-bg"></div>
+    <div class="hero-shape shape-1"></div>
+    <div class="hero-shape shape-2"></div>
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-left">
+          <span class="badge">Впервые офлайн</span>
+          <h1>1С DevCon 2026 <br>для прикладных разработчиков</h1>
+          <p class="hero-subtitle">Главная конференция для разработчиков, архитекторов и тестировщиков на платформе 1С</p>
+          <p class="hero-date">
+          04 апреля 2026
         </p>
-        <p class="hero-date">
+        <a href="#place" class="hero-location">Москва, Дмитровское шоссе, 9</a>
+          
+          <div class="hero-buttons">
+            <a href="#tickets" class="btn btn-primary">Купить билет</a>
+            <a href="#about" class="btn btn-secondary">Узнать больше</a>
+            <a href="https://t.me/MitinaDarya" target="_blank" class="btn btn-tertiary">Стать спикером</a>
+          </div>
+        </div>
+        <div class="hero-right">
+          <img src="https://i.postimg.cc/q7xnXFpq/d5b5d90a-934b-4f03-b160-aeacfcacbb09.png" alt="DevCon Mascot" class="hero-cat-image">
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="container">
+      <h2>О конференции</h2>
+      <div class="about-description">
+        <p><strong>1С DevCon</strong> — это уже шестая профессиональная конференция, посвящённая разработке, архитектуре и тестированию решений на платформе 1С. В 2026 году конференция впервые проходит в офлайн-формате, что делает её особенно ценной для живого общения и обмена опытом.</p>
+        <p>DevCon — это пространство для тех, кто ежедневно решает прикладные задачи: проектирует архитектуру, пишет код, внедряет интерфейсы 8.5, тестирует решения, работает с EDT, Облаками и Элементом. Мы говорим не о теории, а о реальной практике и боевых кейсах.</p>
+        <p>Вас ждут технические доклады, мастер-классы, круглые столы, живые дискуссии и возможность напрямую пообщаться с коллегами и экспертами из индустрии.</p>
+      </div>
+      <h2>Аудитория конференции</h2>
+      <div class="roles-grid">
+        <div class="role-badge">Разработчик</div>
+        <div class="role-badge">TeamLead</div>
+        <div class="role-badge">Архитектор</div>
+        <div class="role-badge">Техлид</div>
+        <div class="role-badge">Руководитель департамента/отдела</div>
+        <div class="role-badge">DevOps</div>
+        <div class="role-badge">Аналитик</div>
+        <div class="role-badge">Системный администратор</div>
+        <div class="role-badge">Project/Product менеджер</div>
+        <div class="role-badge">CTO</div>
+        <div class="role-badge">Тестировщик</div>
+        <div class="role-badge">1С:Специалист</div>
+      </div>
+    </div>
+  </section>
+  
+  <section id="stats">
+    <div class="stats-grid">
+      <div>
+        <span class="stat-number">500+</span>
+        <span class="stat-label">Участников</span>
+      </div>
+      <div>
+        <span class="stat-number">30+</span>
+        <span class="stat-label">Докладов</span>
+      </div>
+      <div>
+        <span class="stat-number">15+</span>
+        <span class="stat-label">Спикеров</span>
+      </div>
+      <div>
+        <span class="stat-number">8</span>
+        <span class="stat-label">Часов контента</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="why">
+    <div class="container">
+      <h2>Почему стоит посетить</h2>
+      <div class="about-grid">
+        <div class="about-card">
+          
+          <h3>Новейшие технологии</h3>
+          <p>Узнайте о последних разработках платформы 1С, инструментах и подходах к разработке</p>
+        </div>
+        <div class="about-card">
+          
+          <h3>Практический опыт</h3>
+          <p>Реальные кейсы от ведущих компаний и экспертов индустрии</p>
+        </div>
+        <div class="about-card">
+   
+          <h3>Нетворкинг</h3>
+          <p>Общение с коллегами, обмен опытом и установление деловых контактов</p>
+        </div>
+        <div class="about-card">
+      
+          <h3>Обучение</h3>
+          <p>Мастер-классы и воркшопы от практикующих специалистов</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  
+
+  <section id="program">
+    <div class="container">
+      <h2 class="sale">Программа конференции</h2>
+      <div class="program-container">
+        <div class="program-row">
+          <div class="program-header">
+            <h3>Платформа 1С</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Новинки платформы 1С:Предприятие 8.3</h4>
+              <p>Обзор последних возможностей и инструментов для разработчиков</p>
+            </div>
+            <div class="talk-card">
+              <h4>Производительность и оптимизация</h4>
+              <p>Лучшие практики написания эффективного кода на встроенном языке</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row">
+          <div class="program-header">
+            <h3>Архитектура</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Проектирование сложных систем</h4>
+              <p>Подходы к архитектуре масштабируемых решений на платформе 1С</p>
+            </div>
+            <div class="talk-card">
+              <h4>Интеграции и API</h4>
+              <p>Построение интеграций с внешними системами через REST и SOAP</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row">
+          <div class="program-header">
+            <h3>DevOps</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>CI/CD для 1С-решений</h4>
+              <p>Автоматизация сборки, тестирования и развёртывания</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row">
+          <div class="program-header">
+            <h3>Облака</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Облачные решения на платформе 1С</h4>
+              <p>Миграция в облако, масштабирование и обеспечение отказоустойчивости</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row">
+          <div class="program-header">
+            <h3>Опыт тестирования</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Автоматизация тестирования</h4>
+              <p>Инструменты и подходы к автоматическому тестированию 1С-решений</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row">
+          <div class="program-header">
+            <h3>Примеры решений</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Кейсы успешных внедрений</h4>
+              <p>Реальные проекты: от идеи до production</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row program-row-special">
+          <div class="program-header">
+            <h3>Круглый стол</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Навыки разработчика 1С в 2026 году</h4>
+              <p>Обсуждение требований рынка и развитие профессиональных компетенций</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row program-row-special">
+          <div class="program-header">
+            <h3>Круглый стол</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Будущее 1С:Элемент</h4>
+              <p>Дискуссия о развитии платформы мобильной разработки</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="program-row program-row-workshop">
+          <div class="program-header">
+            <h3>Мастер-класс</h3>
+          </div>
+          <div class="program-content">
+            <div class="talk-card">
+              <h4>Первые шаги в разработке на 1С</h4>
+              <p>Практический воркшоп для начинающих разработчиков</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tickets">
+    <div class="container">
+      <h2 class="whitetext">Тарифы участия</h2>
+      
+      <a href="https://t.me/MitinaDarya" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 10px; background: transparent; border: 2px solid var(--white); color: var(--white); margin-bottom: 60px; padding: 12px 30px; font-size: 15px;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+        </svg>
+        Ответим на все вопросы
+      </a>
+      
+      <div class="new-ticket-grid">
+        <div class="new-ticket-card ticket-online">
+          <div class="ticket-header">
+            <h3>Онлайн-участие</h3>
+            <div class="ticket-economy">ЭКОНОМИЯ 1000 ₽ <span>Только до 31 марта 2026</span></div>
+          </div>
+          <div class="ticket-prices">
+            <div class="old-price">4 500 ₽</div>
+            <div class="new-price">3 500 ₽</div>
+          </div>
+          <ul class="ticket-features">
+            <li>◆ Трансляция всех докладов</li>
+            <li>◆ Видеозаписи всех докладов</li>
+          </ul>
+          <a href="#" class="btn-new-ticket">Купить билет</a>
+        </div>
+
+        <div class="new-ticket-card ticket-standard">
+          <div class="ticket-header">
+            <h3>Стандарт</h3>
+            <div class="ticket-economy">ЭКОНОМИЯ 2000 ₽ <span>Только до 31 марта 2026</span></div>
+          </div>
+          <div class="ticket-prices">
+            <div class="old-price">8 500 ₽</div>
+            <div class="new-price">6 500 ₽</div>
+          </div>
+          <ul class="ticket-features">
+            <li>◆ Посещение конференции</li>
+            <li>◆ Видеозаписи всех докладов</li>
+            <li>◆ Пакет участника</li>
+            <li>◆ Кофе-брейки</li>
+          </ul>
+          <a href="#" class="btn-new-ticket">Купить билет</a>
+        </div>
+
+        <div class="new-ticket-card ticket-vip">
+          <div class="ticket-header">
+            <h3>VIP</h3>
+            <div class="ticket-economy">ЭКОНОМИЯ 3000 ₽ <span>Только до 31 марта 2026</span></div>
+          </div>
+          <div class="ticket-prices">
+            <div class="old-price">13 000 ₽</div>
+            <div class="new-price">10 000 ₽</div>
+          </div>
+          <ul class="ticket-features">
+            <li>◆ Посещение конференции</li>
+            <li>◆ Первые ряды в зале</li>
+            <li>◆ Видеозаписи всех докладов</li>
+            <li>◆ Пакет участника</li>
+            <li>◆ Кофе-брейки</li>
+            <li>◆ Обед</li>
+            <li>◆ Фуршет и вечерняя программа</li>
+            <li>◆ Гала-ужин</li>
+          </ul>
+          <a href="#" class="btn-new-ticket">Купить билет</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="telegram" style="background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%); padding: 80px 40px; text-align: center;">
+    <div class="container">
+      <h2 style="color: var(--black); margin-bottom: 20px;">Будьте в курсе!</h2>
+      <p style="font-size: 20px; color: var(--black); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
+        Подпишитесь на наш Телеграм, чтобы не пропустить новости мероприятия
+      </p>
+      <a href="https://t.me/MitinaDarya" target="_blank" class="btn" style="background: var(--black); color: var(--white); display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
+        </svg>
+        Подписаться на Telegram
+      </a>
+    </div>
+  </section>
+
+  <section id="place" style="padding: 0; background: var(--white);">
+    <div class="container" style="max-width: 100%; padding: 0;">
+      <div style="padding: 80px 40px 40px; text-align: center; max-width: 1400px; margin: 0 auto;">
+        <h2 style="margin-bottom: 20px;">Место проведения</h2>
+        <p style="font-size: 24px; color: var(--gray); margin-bottom: 10px; font-weight: 600;">
+          Москва, Дмитровское шоссе, 9
+        </p>
+        <p style="font-size: 18px; color: var(--gray); margin-bottom: 40px;">
           📅 04 апреля 2026
         </p>
-        <a href="#place" class="hero-location">
-          📍 Москва, Дмитровское шоссе, 9
-        </a>
-        <div class="cta-group">
-          <a href="#tickets" class="btn btn-primary">Купить билет</a>
-          <a href="#about" class="btn btn-secondary">Узнать больше</a>
-          <a href="#speaker" class="btn btn-tertiary">Стать спикером</a>
+      </div>
+      <div style="position: relative; overflow: hidden; width: 100%; height: 500px;">
+        <iframe 
+          src="https://yandex.ru/map-widget/v1/?ll=37.575701%2C55.815217&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NjczODUxNRJJ0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCU0LzQuNGC0YDQvtCy0YHQutC-0LUg0YjQvtGB0YHQtSwgOSIKDTNmOUIVz-RfQg%2C%2C&pt=37.575701,55.815217,pm2rdm&z=17" 
+          width="100%" 
+          height="500" 
+          frameborder="0"
+          style="display: block; border: none;">
+        </iframe>
+        <div style="position: absolute; top: 20px; left: 20px; background: var(--white); padding: 20px 30px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); max-width: 350px;">
+          <h3 style="font-size: 20px; margin-bottom: 10px; font-weight: 800;">🗺️ Как добраться</h3>
+          <p style="font-size: 15px; color: var(--gray); margin: 0; line-height: 1.6;">
+            <strong style="color: var(--black);">Метро:</strong> Тимирязевская<br>
+            <strong style="color: var(--black);">Время в пути:</strong> 5 минут пешком
+          </p>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>1С DevCon 2026</h3>
+        <p>Профессиональная конференция для разработчиков, архитекторов и тестировщиков на платформе 1С</p>
       </div>
       
-      <div class="hero-right">
-        <img src="https://i.postimg.cc/q7xnXFpq/d5b5d90a-934b-4f03-b160-aeacfcacbb09.png" alt="1С DevCon 2026" class="hero-cat-image">
+      <div class="footer-section">
+        <h3>Место проведения</h3>
+        <p>Москва<br>Дмитровское шоссе, 9<br>04 апреля 2026</p>
       </div>
-    </div>
-  </div>
-</header>
-
-<section id="about">
-  <div class="container">
-    <h2 class="fade-in">О конференции</h2>
-    
-    <div class="about-content">
-      <p class="fade-in delay-1">
-        <strong>1С DevCon</strong> — это уже шестая профессиональная конференция,
-        посвящённая разработке, архитектуре и тестированию решений на платформе 1С.
-        В 2026 году конференция <strong>впервые проходит в офлайн-формате</strong>,
-        что делает её особенно ценной для живого общения и обмена опытом.
-      </p>
-      <p class="fade-in delay-2">
-        DevCon — это пространство для тех, кто ежедневно решает прикладные задачи:
-        проектирует архитектуру, пишет код, внедряет интерфейсы 8.5,
-        тестирует решения, работает с EDT, Облаками и Элементом.
-        Мы говорим не о теории, а о реальной практике и боевых кейсах.
-      </p>
-      <p class="fade-in delay-3">
-        Вас ждут технические доклады, мастер-классы, круглые столы,
-        живые дискуссии и возможность напрямую пообщаться с коллегами
-        и экспертами из индустрии.
-      </p>
-    </div>
-    
-    <!-- Декоративные баблы с аудиторией -->
-    <div class="audience-bubbles">
-      <div class="bubble bubble-1">Разработчик</div>
-      <div class="bubble bubble-2">TeamLead</div>
-      <div class="bubble bubble-3">Архитектор</div>
-      <div class="bubble bubble-4">Техлид</div>
-      <div class="bubble bubble-5">Руководитель департамента/отдела</div>
-      <div class="bubble bubble-6">DevOps</div>
-      <div class="bubble bubble-7">Аналитик</div>
-      <div class="bubble bubble-8">Системный администратор</div>
-      <div class="bubble bubble-9">Project/Product менеджер</div>
-      <div class="bubble bubble-10">CTO</div>
-      <div class="bubble bubble-11">Тестировщик</div>
-      <div class="bubble bubble-12">1С:Специалист</div>
-    </div>
-  </div>
-</section>
-
-<section id="sections">
-  <div class="container">
-    <h2>Программа конференции</h2>
-    <div class="program-table">
-      <div class="program-row">
-        <div class="program-header">
-          <h3>Платформа</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Новое в 8.5.4</h4>
-            <p>Разбор реальных кейсов проектирования сложных систем и оптимизации производительности</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>1C:EDT</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Один день из жизни разработчика 1С:Бухгалтерии</h4>
-            <p>9-00 - Утренний дейлик
-10-00 - Разбор вечерней проверки СонарКуба
-11-00 - Проверка кода по проекту
-12-00 - Разработка проекта в ЕДТ + Конфигуратор
-13-30 - Проработка интерфейса
-15-00 - Согласование задачи
-17-00 - Разбор хотлайна и партнерской конференции</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>Интерфейс 8.5</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Новый интерфейс 8.5</h4>
-            <p>Создание удобных и красивых пользовательских интерфейсов</p>
-          </div>
-          <div class="talk-card">
-            <h4>Перевод конфигурации УНФ на интерфейс 8.5: подходы и результаты</h4>
-            <p>Создание удобных и красивых пользовательских интерфейсов</p>
-          </div>
-          <div class="talk-card">
-            <h4>Новый интерфейс 8.5 в мобильной разработке: возможности и особенности для разработчиков</h4>
-            <p>Создание удобных и красивых пользовательских интерфейсов</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>1С:Аналитика</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Построение аналитических систем</h4>
-            <p>Опыт создания BI-решений и дашбордов на платформе 1С</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>1С:Шина</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Интеграция систем через 1С:Шину</h4>
-            <p>Практические сценарии обмена данными между различными системами</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>1С:Напарник</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>AI-ассистент в разработке</h4>
-            <p>Как 1С:Напарник ускоряет написание кода и повышает качество решений</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>1С:Элемент</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Мобильная разработка с 1С:Элемент</h4>
-            <p>Создание кроссплатформенных мобильных приложений для бизнеса</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>Облака</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Облачные решения на платформе 1С</h4>
-            <p>Миграция в облако, масштабирование и обеспечение отказоустойчивости</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>Опыт тестирования</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Автоматизация тестирования</h4>
-            <p>Инструменты и подходы к автоматическому тестированию 1С-решений</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row">
-        <div class="program-header">
-          <h3>Примеры решений</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Кейсы успешных внедрений</h4>
-            <p>Реальные проекты: от идеи до production</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row program-row-special">
-        <div class="program-header">
-          <h3>Круглый стол</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Навыки разработчика 1С в 2026 году</h4>
-            <p>Обсуждение требований рынка и развитие профессиональных компетенций</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row program-row-special">
-        <div class="program-header">
-          <h3>Круглый стол</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Будущее 1С:Элемент</h4>
-            <p>Дискуссия о развитии платформы мобильной разработки</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="program-row program-row-workshop">
-        <div class="program-header">
-          <h3>Мастер-класс</h3>
-        </div>
-        <div class="program-content">
-          <div class="talk-card">
-            <h4>Первые шаги в разработке на 1С</h4>
-            <p>Практический воркшоп для начинающих разработчиков</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="tickets">
-  <div class="container">
-    <h2 class="sale">Тарифы участия</h2>
-    <p style="text-align: center; font-size: 18px; color: rgba(255, 255, 255, 0.7); margin-bottom: 20px; max-width: 900px; margin-left: auto; margin-right: auto;">
-      <strong style="color: var(--white);">Стоимость билетов постоянно растёт</strong> — чем ближе к мероприятию, тем дороже.
-    </p>
-    <a href="https://t.me/MitinaDarya" target="_blank" class="btn" style="display: inline-flex; align-items: center; gap: 10px; background: transparent; border: 2px solid var(--white); color: var(--white); margin-bottom: 60px; padding: 12px 30px; font-size: 15px;">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-      </svg>
-      Ответим на все вопросы
-    </a>
-    
-    <div class="new-ticket-grid">
       
-      <div class="new-ticket-card ticket-online">
-        <div class="ticket-header">
-          <h3>Онлайн-участие</h3>
-          <div class="ticket-economy">ЭКОНОМИЯ 1000 ₽ <span>Только до 31 марта 2026</span></div>
-        </div>
-        <div class="ticket-prices">
-          <div class="old-price">4 500 ₽</div>
-          <div class="new-price">3 500 ₽</div>
-        </div>
-        <ul class="ticket-features">
-          <li>◆ Трансляция всех докладов</li>
-          <li>◆ Видеозаписи всех докладов</li>
-        </ul>
-        <a href="#" class="btn-new-ticket">Купить билет</a>
+      <div class="footer-section">
+        <h3>Контакты</h3>
+        <p>+7 (495) 123-45-67</p>
       </div>
-
-      <div class="new-ticket-card ticket-standard">
-        <div class="ticket-header">
-          <h3>Стандарт</h3>
-          <div class="ticket-economy">ЭКОНОМИЯ 2000 ₽ <span>Только до 31 марта 2026</span></div>
-        </div>
-        <div class="ticket-prices">
-          <div class="old-price">8 500 ₽</div>
-          <div class="new-price">6 500 ₽</div>
-        </div>
-        <ul class="ticket-features">
-          <li>◆ Посещение конференции</li>
-          <li>◆ Видеозаписи всех докладов</li>
-          <li>◆ Пакет участника</li>
-          <li>◆ Кофе-брейки</li>
-        </ul>
-        <a href="#" class="btn-new-ticket">Купить билет</a>
-      </div>
-
-      <div class="new-ticket-card ticket-vip">
-        <div class="ticket-header">
-          <h3>VIP</h3>
-          <div class="ticket-economy">ЭКОНОМИЯ 3000 ₽ <span>Только до 31 марта 2026</span></div>
-        </div>
-        <div class="ticket-prices">
-          <div class="old-price">13 000 ₽</div>
-          <div class="new-price">10 000 ₽</div>
-        </div>
-        <ul class="ticket-features">
-          <li>◆ Посещение конференции</li>
-          <li>◆ Первые ряды в зале</li>
-          <li>◆ Видеозаписи всех докладов</li>
-          <li>◆ Пакет участника</li>
-          <li>◆ Кофе-брейки</li>
-          <li>◆ Обед</li>
-          <li>◆ Фуршет и вечерняя программа</li>
-          <li>◆ Гала-ужин</li>
-        </ul>
-        <a href="#" class="btn-new-ticket">Купить билет</a>
-      </div>
-
-      
-    </div>
-  </div>
-</section>
-
-<section id="telegram" style="background: linear-gradient(135deg, var(--yellow) 0%, var(--yellow-bright) 100%); padding: 80px 40px; text-align: center;">
-  <div class="container">
-    <h2 style="color: var(--black); margin-bottom: 20px;">Будьте в курсе!</h2>
-    <p style="font-size: 20px; color: var(--black); margin-bottom: 40px; max-width: 600px; margin-left: auto; margin-right: auto;">
-      Подпишитесь на наш Телеграм, чтобы не пропустить новости мероприятия
-    </p>
-    <a href="https://t.me/MitinaDarya" target="_blank" class="btn" style="background: var(--black); color: var(--white); display: inline-flex; align-items: center; gap: 10px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69a.2.2 0 0 0-.05-.18c-.06-.05-.14-.03-.21-.02-.09.02-1.49.95-4.22 2.79-.4.27-.76.41-1.08.4-.36-.01-1.04-.2-1.55-.37-.63-.2-1.12-.31-1.08-.66.02-.18.27-.36.74-.55 2.92-1.27 4.86-2.11 5.83-2.51 2.78-1.16 3.35-1.36 3.73-1.36.08 0 .27.02.39.12.1.08.13.19.14.27-.01.06.01.24 0 .38z"/>
-      </svg>
-      Подписаться на Telegram
-    </a>
-  </div>
-</section>
-
-<section id="place" style="padding: 0; background: var(--white);">
-  <div class="container" style="max-width: 100%; padding: 0;">
-    <div style="padding: 80px 40px 40px; text-align: center; max-width: 1400px; margin: 0 auto;">
-      <h2 style="margin-bottom: 20px;">Место проведения</h2>
-      <p style="font-size: 24px; color: var(--gray); margin-bottom: 10px; font-weight: 600;">
-        Москва, Дмитровское шоссе, 9
-      </p>
-      <p style="font-size: 18px; color: var(--gray); margin-bottom: 40px;">
-        📅 04 апреля 2026
-      </p>
-    </div>
-    <div style="position: relative; overflow: hidden; width: 100%; height: 500px;">
-      <iframe 
-        src="https://yandex.ru/map-widget/v1/?ll=37.575701%2C55.815217&mode=search&ol=geo&ouri=ymapsbm1%3A%2F%2Fgeo%3Fdata%3DCgg1NjczODUxNRJJ0KDQvtGB0YHQuNGPLCDQnNC-0YHQutCy0LAsINCU0LzQuNGC0YDQvtCy0YHQutC-0LUg0YjQvtGB0YHQtSwgOSIKDTNmOUIVz-RfQg%2C%2C&pt=37.575701,55.815217,pm2rdm&z=17" 
-        width="100%" 
-        height="500" 
-        frameborder="0"
-        style="display: block; border: none;">
-      </iframe>
-      <div style="position: absolute; top: 20px; left: 20px; background: var(--white); padding: 20px 30px; border-radius: 16px; box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15); max-width: 350px;">
-        <h3 style="font-size: 20px; margin-bottom: 10px; font-weight: 800;">🗺️ Как добраться</h3>
-        <p style="font-size: 15px; color: var(--gray); margin: 0; line-height: 1.6;">
-          <strong style="color: var(--black);">Метро:</strong> Тимирязевская<br>
-          <strong style="color: var(--black);">Время в пути:</strong> 5 минут пешком
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-content">
-    <div class="footer-section">
-      <h3>1С DevCon 2026</h3>
-      <p>Профессиональная конференция для разработчиков, архитекторов и тестировщиков на платформе 1С</p>
     </div>
     
-    <div class="footer-section">
-      <h3>Место проведения</h3>
-      <p>Москва<br>Дмитровское шоссе, 9<br>04 апреля 2026</p>
+    <div class="footer-bottom">
+      <p>© 2026 Конференция для разработчиков 1С. Все права защищены.</p>
+      <p>Организатор ООО «Софтехно», ИНН 7731655492, ОГРН 1107746703943</p>
     </div>
-    
-    <div class="footer-section">
-      <h3>Контакты</h3>
-      <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="8be2e5ede4cbbae8efeefde8e4e5a5f9fe">[email&#160;protected]</a><br>+7 (495) 123-45-67</p>
-    </div>
-  </div>
-  
-  <div class="footer-bottom">
-    <p>© 2026 Конференция для разработчиков 1С. Все права защищены.</p>
-     <p>Организатор ООО «Софтехно», ИНН 7731655492, ОГРН 1107746703943</p>
-  </div>
-</footer>
+  </footer>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // Smooth scroll
-  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-      e.preventDefault();
-      const target = document.querySelector(this.getAttribute('href'));
-      if (target) {
-        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Mobile menu functionality
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileMenuOverlay = document.getElementById('mobileMenuOverlay');
+    const mobileMenuLinks = document.querySelectorAll('.mobile-menu a');
+
+    if (mobileMenuBtn) {
+      function toggleMobileMenu() {
+        mobileMenuBtn.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        mobileMenuOverlay.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+      }
+
+      function closeMobileMenu() {
+        mobileMenuBtn.classList.remove('active');
+        mobileMenu.classList.remove('active');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      mobileMenuBtn.addEventListener('click', toggleMobileMenu);
+      mobileMenuOverlay.addEventListener('click', closeMobileMenu);
+
+      mobileMenuLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          closeMobileMenu();
+          // Let the smooth scroll happen after menu closes
+          setTimeout(() => {
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) {
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }, 300);
+        });
+      });
+    }
+
+    // Smooth scroll
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('scrolled');
+      } else {
+        navbar.classList.remove('scrolled');
       }
     });
-  });
 
-  // Navbar scroll effect
-  const navbar = document.getElementById('navbar');
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navbar.classList.add('scrolled');
-    } else {
-      navbar.classList.remove('scrolled');
-    }
-  });
+    // Intersection Observer for fade-in animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -100px 0px'
+    };
 
-  // Intersection Observer for fade-in animations
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -100px 0px'
-  };
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = '1';
+    document.querySelectorAll('.about-card, .speaker-card, .talk-card, .new-ticket-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
